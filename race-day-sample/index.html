@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Keep out of search engines until the club decides on privacy. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Race Day Sample</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --draft-bg: #fff4d6; --draft-ink: #5c4400; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --draft-bg: #3a2f10; --draft-ink: #f2d98c; } }
+  :root[data-theme="dark"] { --draft-bg: #3a2f10; --draft-ink: #f2d98c; }
+  .draft { margin: 0; padding: 8px 16px; background: var(--draft-bg); color: var(--draft-ink); font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<p class="draft">Sample for coaches: the race day pages as they'd have looked the day before Hampton, Feb 21, 2026, with the results up to then. Please don't share this link.</p>
+<header class="top">
+  <a class="brand" href="#/"><img src="logo.png" alt="" width="86" height="40"><span class="brand-name">Skating PBs</span></a>
+  <nav aria-label="Main">
+    <a href="#/" data-nav="skaters">Skaters</a>
+    <a href="#/standings" data-nav="standings">Standings</a>
+    <a href="#/club" data-nav="club">Club</a>
+  </nav>
+</header>
+<main id="app"></main>
+<footer class="foot" id="foot"></footer>
+<script>
+  // The site as of Friday Feb 20, 2026, opening on Hampton's coaches' page.
+  (() => {
+    const Real = Date, shift = new Real(2026, 1, 20, 12).getTime() - Real.now();
+    window.Date = class extends Real {
+      constructor(...a) { super(...(a.length ? a : [Real.now() + shift])); }
+      static now() { return Real.now() + shift; }
+    };
+    const start = "#/race/2026-02-21-short/coaches";
+    if (!location.hash.startsWith("#/")) {
+      try { history.replaceState(null, "", start); } catch (e) { location.hash = start; }
+    }
+  })();
+</script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
